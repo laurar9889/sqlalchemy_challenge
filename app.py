@@ -97,7 +97,7 @@ def stations():
 def tobs():
      # Create our session (link) from Python to the DB
     session = Session(engine)
-
+    #Copy/paste the query developed in "climate_starter.ipynb" to filter the last 12months data of station USC00519281
     max_date = session.query(func.max(Measurement.date)).scalar()
     last_year_date = datetime.strptime(max_date, '%Y-%m-%d') - timedelta(days=366)
     results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.date>=last_year_date).filter(Measurement.station == 'USC00519281').all()
@@ -120,6 +120,7 @@ def tobs():
 def start_date(start):
     # Create our session (link) from Python to the DB
     session = Session(engine)
+
     #Use the code used in climate_started jupyter notebook to find out min, max, ave temperature of a certain date
     start_date_results = session.query(func.min(Measurement.tobs),func.max(Measurement.tobs),func.avg(Measurement.tobs)).filter(Measurement.date >= start).all()
 
